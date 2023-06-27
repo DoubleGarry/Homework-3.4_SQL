@@ -1,26 +1,25 @@
 package ru.hogwarts.scholl.model;
-import jakarta.persistence.*;
 
+import jakarta.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-public class Student {
+public class Faculty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    private int age;
-    @ManyToOne
-    @JoinColumn(name = "faculty_id")
-    private Faculty faculty;
+    private String color;
+    @OneToMany(mappedBy = "faculty")
+    private Collection<Student> students;
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "Faculty{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", age=" + age +
-                ", faculty=" + faculty.getId() +
+                ", color='" + color + '\'' +
                 '}';
     }
 
@@ -28,8 +27,8 @@ public class Student {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return id == student.id;
+        Faculty faculty = (Faculty) o;
+        return id == faculty.id;
     }
 
     @Override
@@ -53,19 +52,11 @@ public class Student {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
+    public String getColor() {
+        return color;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Faculty getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
+    public void setColor(String color) {
+        this.color = color;
     }
 }
