@@ -1,26 +1,20 @@
-package ru.hogwarts.scholl.model;
-import jakarta.persistence.*;
+package ru.hogwarts.scholl.dto;
 
 import java.util.Objects;
 
-@Entity
-public class Student {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class StudentDtoOut {
     private long id;
     private String name;
     private int age;
-    @ManyToOne
-    @JoinColumn(name = "faculty_id")
-    private Faculty faculty;
+    private FacultyDtoOut faculty;
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "StudentDtoOut{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
-                ", faculty=" + faculty.getId() +
+                ", faculty=" + faculty +
                 '}';
     }
 
@@ -28,8 +22,8 @@ public class Student {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return id == student.id;
+        StudentDtoOut that = (StudentDtoOut) o;
+        return id == that.id;
     }
 
     @Override
@@ -61,11 +55,11 @@ public class Student {
         this.age = age;
     }
 
-    public Faculty getFaculty() {
+    public FacultyDtoOut getFaculty() {
         return faculty;
     }
 
-    public void setFaculty(Faculty faculty) {
+    public void setFaculty(FacultyDtoOut faculty) {
         this.faculty = faculty;
     }
 }
